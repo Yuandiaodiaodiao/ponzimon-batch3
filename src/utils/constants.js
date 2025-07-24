@@ -5,16 +5,16 @@ export const NETWORK_PRESETS = {
     programId: 'pvbX31Yg4c5tapUPmcrMAMEM85G4QmUjHxdv9Kuct61',
     tokenMint: 'mw6ehonjUYzNKbFEXUyPx1Zeh3D5S5eY3vXzeLBxgGw',
     feesWallet: '8kvqgxQG77pv6RvEou8f2kHSWi3rtx8F7MksXUqNLGmn',
-    recipientAccount: 'FFpupkAseEBB7XQKqrKcmqwW9ByxePfB9YT9KDMwe1BA',
-    referrerWallet: 'FFpupkAseEBB7XQKqrKcmqwW9ByxePfB9YT9KDMwe1BA' // 默认使用feesWallet
+    recipientAccount: '6iexyMncd1F9Qkwbakxwzd67kTZTWeZDtgrsYaCvQBsg',
+    referrerWallet: '6iexyMncd1F9Qkwbakxwzd67kTZTWeZDtgrsYaCvQBsg' // 默认使用feesWallet
   },
   mainnet: {
     rpcUrl: 'https://mainnet.helius-rpc.com/?api-key=3037f54a-6c87-474f-8d93-c4d12b245aa1',
     programId: 'PNZdxJNSEFmp2UZ39pEekFHZf15emsrbkaHv36xjgtx',
     tokenMint: 'PNeZtT8TrKSkMCYamwymQsbENKvuiXu2kgqmNsXvQUT',
     feesWallet: '973zBrSe9ujPTbvKpxeAb6DVPjmvRmJUUvwXrpxSTfeb',
-    recipientAccount: 'FFpupkAseEBB7XQKqrKcmqwW9ByxePfB9YT9KDMwe1BA',
-    referrerWallet: 'FFpupkAseEBB7XQKqrKcmqwW9ByxePfB9YT9KDMwe1BA' // 默认使用feesWallet
+    recipientAccount: '6iexyMncd1F9Qkwbakxwzd67kTZTWeZDtgrsYaCvQBsg',
+    referrerWallet: '6iexyMncd1F9Qkwbakxwzd67kTZTWeZDtgrsYaCvQBsg' // 默认使用feesWallet
   }
 }
 

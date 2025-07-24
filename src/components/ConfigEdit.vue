@@ -71,23 +71,20 @@
         <input v-model="config.rpcUrl" placeholder="RPC URL" />
       </div>
       <div class="input-group">
-        <label>Program:</label>
+        <label>Program(游戏程序):</label>
         <input v-model="config.programId" placeholder="Program ID" />
       </div>
       <div class="input-group">
-        <label>tokenMint:</label>
+        <label>tokenMint(游戏程序):</label>
         <input v-model="config.tokenMint" placeholder="Token Mint" />
       </div>
       <div class="input-group">
-        <label>feesWallet:</label>
+        <label>fundWaller(游戏程序):</label>
         <input v-model="config.feesWallet" placeholder="Fees Wallet" />
       </div>
+    
       <div class="input-group">
-        <label>推荐人钱包(邀请链接里的地址):</label>
-        <input v-model="config.referrerWallet" placeholder="Referrer Wallet" />
-      </div>
-      <div class="input-group">
-        <label>claim归集地址(改成你自己的):</label>
+        <label>claim归集地址(改成你自己的!!!! 会归集PONZI进来):</label>
         <input v-model="config.recipientAccount" placeholder="Recipient Address" />
       </div>
     </div>
