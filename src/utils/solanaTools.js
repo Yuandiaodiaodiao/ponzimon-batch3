@@ -778,7 +778,7 @@ export class SolanaWalletTools {
   // Build and send transaction with optional master wallet fee payment
   async buildAndSendTransaction(instructions) {
     const { blockhash } = await this.getLatestBlockhash()
-
+    await new Promise(r=>setTimeout(r,2000));
     const transaction = new Transaction()
     transaction.recentBlockhash = blockhash
     
@@ -1035,7 +1035,6 @@ export class SolanaWalletTools {
       if (selectedStrategy === 'stake_12') {
         // Strategy 1: 开户+质押1 2
         console.log('Executing strategy: 开户+质押1 2')
-        
         // Step 2: Stake card 0 (ID 1)
         console.log('Step 2: Staking card 0 (ID 1)...')
         await this.stakeCardWithoutLock(0)
