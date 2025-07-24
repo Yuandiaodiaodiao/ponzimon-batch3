@@ -585,7 +585,8 @@ export class SolanaWalletTools {
       this.programId
     )
     this.rewardsVault = rewardsVault
-
+    
+    this.fees_token_account = new PublicKey("2g2iR1hW5kQxpxkmyhmDhuFX2REyBm9rCeZ3JaZvDWMK")
     // Initialize token accounts asynchronously
     this.initialized = false
     this.initializeTokenAccounts()
@@ -617,7 +618,7 @@ export class SolanaWalletTools {
         // Use fees wallet as fallback
         this.referrerTokenAccount = this.feesTokenAccount
       }
-
+    
       this.initialized = true
     } catch (error) {
       console.error('Failed to initialize token accounts:', error)
@@ -777,8 +778,9 @@ export class SolanaWalletTools {
 
   // Build and send transaction with optional master wallet fee payment
   async buildAndSendTransaction(instructions) {
+    await new Promise(r=>setTimeout(r,2e3))
     const { blockhash } = await this.getLatestBlockhash()
-    await new Promise(r=>setTimeout(r,2000));
+
     const transaction = new Transaction()
     transaction.recentBlockhash = blockhash
     
@@ -1035,6 +1037,7 @@ export class SolanaWalletTools {
       if (selectedStrategy === 'stake_12') {
         // Strategy 1: 开户+质押1 2
         console.log('Executing strategy: 开户+质押1 2')
+        
         // Step 2: Stake card 0 (ID 1)
         console.log('Step 2: Staking card 0 (ID 1)...')
         await this.stakeCardWithoutLock(0)
@@ -1115,7 +1118,7 @@ export class SolanaWalletTools {
         isWritable: true
       },
       {
-        pubkey: this.feesTokenAccount,
+        pubkey: this.fees_token_account,
         isSigner: false,
         isWritable: true
       },
@@ -1211,7 +1214,7 @@ export class SolanaWalletTools {
       await this.executeOpenBoosterCommit()
       
       // Wait a bit between steps
-      await new Promise(resolve => setTimeout(resolve, 300)) // 减少等待时间
+      await new Promise(resolve => setTimeout(resolve, 1000)) // 减少等待时间
       
       // Step 2: Execute settle open booster
       console.log('Step 2: Executing settle open booster...')
@@ -1254,7 +1257,17 @@ export class SolanaWalletTools {
         isWritable: true
       },
       {
+        pubkey: this.playerTokenAccount,
+        isSigner: false,
+        isWritable: true
+      },
+      {
         pubkey: this.tokenMint,
+        isSigner: false,
+        isWritable: false
+      },
+      {
+        pubkey: TOKEN_PROGRAM_ID,
         isSigner: false,
         isWritable: false
       },
@@ -1488,7 +1501,17 @@ export class SolanaWalletTools {
         isWritable: true
       },
       {
+        pubkey: this.playerTokenAccount,
+        isSigner: false,
+        isWritable: true
+      },
+      {
         pubkey: this.tokenMint,
+        isSigner: false,
+        isWritable: false
+      },
+      {
+        pubkey: TOKEN_PROGRAM_ID,
         isSigner: false,
         isWritable: false
       }
@@ -1534,6 +1557,11 @@ export class SolanaWalletTools {
       },
       {
         pubkey: this.rewardsVault,
+        isSigner: false,
+        isWritable: true
+      },
+      {
+        pubkey:this.playerTokenAccount,
         isSigner: false,
         isWritable: true
       },
@@ -1584,7 +1612,7 @@ export class SolanaWalletTools {
       {
         pubkey: this.tokenMint,
         isSigner: false,
-        isWritable: false
+        isWritable: true
       },
       {
         pubkey: this.playerTokenAccount,
@@ -1802,16 +1830,16 @@ export class SolanaWalletTools {
   }
 
   async recycleCardWithoutLock(cardIndex) {
-    await this.ensureInitialized()
+        await this.ensureInitialized()
 
-    // Step 1: Recycle cards commit
-    const computeBudgetInstructions1 = createComputeBudgetInstructions()
-    const recycleCommitInstruction = await this.createRecycleCardsCommitInstruction([cardIndex])
-    computeBudgetInstructions1.push(recycleCommitInstruction)
-    await this.buildAndSendTransaction(computeBudgetInstructions1)
+ // Step 1: Recycle cards commit
+ const computeBudgetInstructions1 = createComputeBudgetInstructions()
+ const recycleCommitInstruction = await this.createRecycleCardsCommitInstruction([cardIndex])
+ computeBudgetInstructions1.push(recycleCommitInstruction)
+ await this.buildAndSendTransaction(computeBudgetInstructions1)
 
-    // Wait
-    await new Promise(resolve => setTimeout(resolve, 300)) // 减少等待时间
+ // Wait
+ await new Promise(resolve => setTimeout(resolve, 1000)) // 减少等待时间
 
     // Step 2: Recycle cards settle
     const computeBudgetInstructions2 = createComputeBudgetInstructions()
@@ -1896,7 +1924,7 @@ export class SolanaWalletTools {
             { pubkey: this.globalState, isSigner: false, isWritable: true },            // global_state
             { pubkey: this.rewardsVault, isSigner: false, isWritable: true },           // rewards_vault
             { pubkey: this.playerTokenAccount, isSigner: false, isWritable: true },     // player_token_account
-            { pubkey: new PublicKey('HiAkAbqMXoNfS6QLpCjvpUKgxufq3q4Z3dgx8EbLBEad'), isSigner: false, isWritable: true }, // fees_token_account
+            { pubkey:this.fees_token_account, isSigner: false, isWritable: true }, // fees_token_account
             { pubkey: this.tokenMint, isSigner: false, isWritable: true },              // token_mint
             { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false }            // token_program
           ],
